@@ -1,6 +1,9 @@
 package xerrors
 
-import "fmt"
+import (
+	"fmt"
+	"net/http"
+)
 
 type Code int
 
@@ -12,10 +15,21 @@ const (
 	UnAuthorized    = Code(4)
 )
 
+var mCodeAndHttpStatus = map[Code]int{
+	Unknown:         http.StatusBadRequest,
+	InvalidArgument: http.StatusBadRequest,
+	Internal:        http.StatusInternalServerError,
+	UnAuthorized:    http.StatusUnauthorized,
+}
+
 type XError struct {
 	Code    Code
 	Message string
 	Err     error
+}
+
+func (e XError) HttpStatus() int {
+	return mCodeAndHttpStatus[e.Code]
 }
 
 func (e XError) Error() string {

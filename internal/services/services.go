@@ -136,7 +136,7 @@ func (s *ToDoService) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	resp.Header().Set("Content-Type", "application/json")
 	if errFunc != nil {
 		err := errFunc.(xerrors.XError)
-		resp.WriteHeader(http.StatusBadRequest)
+		resp.WriteHeader(err.HttpStatus())
 		json.NewEncoder(resp).Encode(map[string]string{
 			"error": err.Message,
 		})
