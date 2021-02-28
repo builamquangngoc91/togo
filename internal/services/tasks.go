@@ -56,6 +56,10 @@ func (s *TaskService) ListTasks(ctx context.Context, req *up.ListTasksRequest) (
 }
 
 func (s *TaskService) AddTask(ctx context.Context, req *up.AddTaskRequest) (resp *up.Task, _ error) {
+	if err := req.Validate(); err != nil {
+		return nil, err
+	}
+
 	userID, _ := userIDFromCtx(ctx)
 	now := time.Now()
 

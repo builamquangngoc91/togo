@@ -29,6 +29,10 @@ func NewUserService(db *sql.DB, maxTodo int, jwtKey string) *UserService {
 }
 
 func (s *UserService) Register(ctx context.Context, req *up.RegisterRequest) (*up.RegisterResponse, error) {
+	if err := req.Validate(); err != nil {
+		return nil, err
+	}
+
 	if req.MaxTodo == 0 {
 		req.MaxTodo = s.maxTodo
 	}
@@ -62,6 +66,10 @@ func (s *UserService) Register(ctx context.Context, req *up.RegisterRequest) (*u
 }
 
 func (s *UserService) Login(ctx context.Context, req *up.LoginRequest) (*up.LoginResponse, error) {
+	if err := req.Validate(); err != nil {
+		return nil, err
+	}
+
 	userID := sql.NullString{
 		String: req.UserID,
 		Valid:  true,
