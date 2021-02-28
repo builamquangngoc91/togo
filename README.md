@@ -1,4 +1,4 @@
-# tokoin
+# Manabie
 
 ## Introduction
 
@@ -8,9 +8,21 @@ A code challenge from manabie.
 
 #### Prerequisite
 
-golang must be installed.
+golang and docker must be installed.
 
 #### How to run the app
+- Before run program, must run docker-compose file and run db migration files
+    - Run docker-compose
+  ```
+  docker-compose up -d
+  ```
+    - Run database migration files (after docker-compose)
+  ```
+  docker exec -it manabie_postgres bash
+  psql -U postgres
+  \c manabie
+  ```
+  copy two files *.sql and run it into console.
 
 - In order to run the app without building the binary file, please run following commands:
 
