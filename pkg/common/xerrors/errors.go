@@ -58,7 +58,7 @@ func ErrorM(code Code, err error, msg string) XError {
 func ErrorMf(code Code, err error, msg string, args ...interface{}) XError {
 	return XError{
 		Code:    code,
-		Message: fmt.Sprintf(msg, args),
+		Message: fmt.Sprintf(msg, args...),
 		Err:     err,
 	}
 }
